@@ -19,18 +19,11 @@ public class ratingMapper
         while (itr.hasMoreTokens()) {
             //let us process the logs here only for rating 
             //three types of logs
-            // 1. <time>,<userid>,recommendation request <server>, status <200 for success>, result: <recommendations>, <responsetime>
-            // 2. <time>,<userid>,GET /data/m/<movieid>/<minute>.mpg 
-            // 3. rating <time>,<userid>,GET /rate/<movieid>=<rating>
             String line = itr.nextToken();
-            String left = line.split(" ")[0];
-            String right = line.split(" ")[1];
-            String userId = left.split(",")[1];
-            if(right.split("/")[1].equals("rate")){
-                String movieID= right.split("/")[2].split("=")[0];
-                String userID= right.split("/")[2].split("=")[1];
-                context.write(new Text(userId), new Text(movieID + "," + userID));
-            }
+            String userId = left.split(",")[0];
+            String movieID= right.split(",")[1];
+            String userID= right.split(",")[3];
+            context.write(new Text(userId), new Text(movieID + "," + userID));
         }
     }
 }
