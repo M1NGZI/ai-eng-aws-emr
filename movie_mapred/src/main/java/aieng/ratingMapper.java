@@ -20,10 +20,13 @@ public class ratingMapper
             //let us process the logs here only for rating 
             //three types of logs
             String line = itr.nextToken();
-            String userId = left.split(",")[0];
-            String movieID= right.split(",")[1];
-            String userID= right.split(",")[3];
+            String userId = line.split(",")[0];
+            String movieID= line.split(",")[1];
+            String userID= line.split(",")[3];
             context.write(new Text(userId), new Text(movieID + "," + userID));
         }
     }
 }
+
+
+
